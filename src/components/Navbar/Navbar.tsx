@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import MobileMenu from "./MobileMenu";
 import NavLink from "./NavLink";
+import { Link } from "react-router-dom";
 
 const logo = "/assets/Images/logo.png";
 
@@ -26,11 +27,13 @@ const Navbar: React.FC = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     <div className="flex-shrink-0 flex items-center">
-                        <img
-                            className="block h-20 md:h-28 w-auto md:mt-10"
-                            src={logo}
-                            alt="Logo"
-                        />
+                        <Link to="/">
+                            <img
+                                className="block h-20 md:h-28 w-auto md:mt-10"
+                                src={logo}
+                                alt="Logo"
+                            />
+                        </Link>
                     </div>
                     <div className="hidden sm:flex sm:space-x-4 mt-10">
                         <div className="flex justify-end space-x-4">
