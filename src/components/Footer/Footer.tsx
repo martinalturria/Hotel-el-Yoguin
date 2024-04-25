@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
 import { useInView } from "react-intersection-observer";
+import { Link } from "react-router-dom";
 
 const Footer: React.FC = () => {
     const [animationTitle, setAnimationTitle] = useState("");
@@ -25,18 +26,26 @@ const Footer: React.FC = () => {
         <footer className="bg-hotel-black">
             <div ref={ref} className="max-w-6xl mx-auto px-4 py-10 text-white">
                 <div className="flex flex-col gap-5 justify-center items-center md:flex-row md:justify-around">
-                    <div className={`flex flex-col justify-center items-center ${animationComponent}`}>
-                        <a href="/contact">
+                    <div
+                        className={`flex flex-col justify-center items-center ${animationComponent}`}
+                    >
+                        <Link to="/contact">
                             <h3
                                 className={`font-serif text-xl text-center font-semibold mb-2 text-hotel-nav ${animationTitle}`}
                             >
                                 Contacto:
                             </h3>
-                        </a>
-                        <p className="font-sans text-sm">Teléfono: (358) 4 22-5525</p>
-                        <p className="font-sans text-sm">Dirección: Bv. Roca 323 (Porteros 1 y 2)</p>
+                        </Link>
+                        <p className="font-sans text-sm">
+                            Teléfono: (358) 4 22-5525
+                        </p>
+                        <p className="font-sans text-sm">
+                            Dirección: Bv. Roca 323 (Porteros 1 y 2)
+                        </p>
                     </div>
-                    <div className={`flex flex-col gap-4 ${animationComponent}`}>
+                    <div
+                        className={`flex flex-col gap-4 ${animationComponent}`}
+                    >
                         <h3 className="font-serif text-xl text-center font-semibold mb-2 text-hotel-nav">
                             Síguenos:
                         </h3>

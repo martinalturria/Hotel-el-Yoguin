@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
+import { Link } from "react-router-dom";
 
 const ImagePreviewSection: React.FC = () => {
     const [animationTitle, setAnimationTitle] = useState("");
@@ -39,8 +40,8 @@ const ImagePreviewSection: React.FC = () => {
                 className={`grid grid-cols-1 md:grid-cols-3 gap-4 ${animationComponent}`}
             >
                 {imagePreviews.map((preview, index) => (
-                    <a
-                        href={preview.galleryLink}
+                    <Link
+                        to={preview.galleryLink}
                         key={index}
                         className="group block"
                     >
@@ -51,15 +52,15 @@ const ImagePreviewSection: React.FC = () => {
                                 className="object-cover w-full h-40 md:h-72 group-hover:opacity-95 transition ease-in-out group-hover:scale-110"
                             />
                         </div>
-                    </a>
+                    </Link>
                 ))}
             </div>
-            <a
-                href="/images"
+            <Link
+                to="/images"
                 className={`font-sans text-hotel-brown text-center text-xl mt-7 md:mt-0 font-semibold hover:text-hotel-black transition duration-300 ${animationTitle}`}
             >
                 Entrar a la galería
-            </a>
+            </Link>
         </div>
     );
 };
