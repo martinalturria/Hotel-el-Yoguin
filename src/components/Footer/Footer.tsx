@@ -30,7 +30,7 @@ const Footer: React.FC = () => {
                             <h3
                                 className={`font-serif text-xl text-center font-semibold mb-2 text-hotel-nav ${animationTitle}`}
                             >
-                                Contacto
+                                Contacto:
                             </h3>
                         </a>
                         <p className="font-sans text-sm">Teléfono: (358) 4 22-5525</p>
