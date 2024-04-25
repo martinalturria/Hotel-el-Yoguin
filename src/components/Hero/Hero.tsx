@@ -9,7 +9,7 @@ const roomImage = "/assets/Images/hero/Habitacion.jpg";
 const heroContent: HeroContent = {
     "/": {
         backgroundImage: frontImage,
-        title: "Bienvenidos al Hotel El Yoguin",
+        title: "Bienvenidos a Hotel El Yoguin",
         subtitle: "Lujo y confort en el corazón de Alcira",
     },
     "/images": {
@@ -60,7 +60,7 @@ const Hero: React.FC = () => {
                 <div className="absolute inset-0 bg-black bg-opacity-60"></div>
                 <div className="relative z-20">
                     <h1
-                        className={`text-6xl lg:text-7xl text-hotel-gold font-bold text-center font-handwriting ${
+                        className={`text-6xl px-4 lg:text-7xl text-hotel-gold font-bold text-center font-handwriting ${
                             animate ? "animate-fadeIn" : ""
                         }`}
                     >

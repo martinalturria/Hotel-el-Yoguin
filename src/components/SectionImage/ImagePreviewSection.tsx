@@ -29,10 +29,10 @@ const ImagePreviewSection: React.FC = () => {
     return (
         <div
             ref={ref}
-            className="bg-hotel-brown bg-opacity-10 px-4 mb-8 sm:px-6 lg:px-16 md:h-screen md:mb-0 flex flex-col justify-evenly"
+            className="bg-hotel-brown bg-opacity-10 px-4 sm:px-6 lg:px-16 md:h-screen md:mb-0 flex flex-col justify-evenly"
         >
             <h2
-                className={`font-serif text-2xl mt-10 md:mt-0 lg:mt-0 md:text-3xl font-semibold text-center mb-12 ${animationTitle}`}
+                className={`font-serif px text-2xl mt-10 md:mt-0 lg:mt-0 md:text-3xl font-semibold text-center mb-12 ${animationTitle}`}
             >
                 NUESTRAS COMODIDADES EN IMÁGENES
             </h2>
@@ -57,7 +57,7 @@ const ImagePreviewSection: React.FC = () => {
             </div>
             <Link
                 to="/images"
-                className={`font-sans text-hotel-brown text-center text-xl mt-7 md:mt-0 font-semibold hover:text-hotel-black transition duration-300 ${animationTitle}`}
+                className={`font-sans mb-4 text-hotel-brown text-center text-xl mt-7 md:mt-0 font-semibold hover:text-hotel-black transition duration-300 ${animationTitle}`}
             >
                 Entrar a la galería
             </Link>

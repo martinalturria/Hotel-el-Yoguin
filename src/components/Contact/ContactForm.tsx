@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AiOutlineEnvironment, AiOutlinePhone } from "react-icons/ai";
+import { FaMobileAlt } from "react-icons/fa";
 
 const ContactForm: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -68,8 +69,12 @@ const ContactForm: React.FC = () => {
             </h2>
             <div className="hidden md:flex md:flex-col justify-center items-center mb-5 text-lg text-hotel-black">
                 <div className="mb-4 flex items-center">
+                    <FaMobileAlt className="text-hotel-gold mr-2 text-3xl" />
+                    <span className="font-sans">(358) 422-5525</span>
+                </div>
+                <div className="mb-4 flex items-center">
                     <AiOutlinePhone className="text-hotel-gold mr-2 text-3xl" />
-                    <span className="font-sans">(358) 4 22-5525</span>
+                    <span className="font-sans">(358) 4961-531</span>
                 </div>
                 <div className="flex items-center">
                     <AiOutlineEnvironment className="text-hotel-gold mr-2 text-3xl" />

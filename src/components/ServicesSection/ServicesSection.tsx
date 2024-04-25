@@ -44,7 +44,7 @@ const ServicesSection: React.FC = () => {
             }
         >
             <h2
-                className={`font-sans text-3xl text-center font-semibold mb-10 ${animationTitle}`}
+                className={`font-sans px-4 text-3xl text-center font-semibold mb-10 ${animationTitle}`}
             >
                 SERVICIOS DE NUESTRO HOTEL
             </h2>

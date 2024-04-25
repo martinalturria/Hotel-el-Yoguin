@@ -1,6 +1,6 @@
 // Footer.tsx
 import React, { useEffect, useState } from "react";
-import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
+import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
 
@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
             <div ref={ref} className="max-w-6xl mx-auto px-4 py-10 text-white">
                 <div className="flex flex-col gap-5 justify-center items-center md:flex-row md:justify-around">
                     <div
-                        className={`flex flex-col justify-center items-center ${animationComponent}`}
+                        className={`flex flex-col gap-1 justify-center items-center ${animationComponent}`}
                     >
                         <Link to="/contact">
                             <h3
@@ -37,10 +37,13 @@ const Footer: React.FC = () => {
                             </h3>
                         </Link>
                         <p className="font-sans text-sm">
-                            Teléfono: (358) 4 22-5525
+                            Celular: (358) 422-5525
                         </p>
                         <p className="font-sans text-sm">
-                            Dirección: Bv. Roca 323 (Porteros 1 y 2)
+                            Teléfono: (358) 4961-531
+                        </p>
+                        <p className="font-sans text-sm">
+                            Dirección: Bv. Roca 323 (Porteros 1 y 2), Alcira
                         </p>
                     </div>
                     <div
@@ -49,23 +52,16 @@ const Footer: React.FC = () => {
                         <h3 className="font-serif text-xl text-center font-semibold mb-2 text-hotel-nav">
                             Síguenos:
                         </h3>
-                        <div className="flex justify-start space-x-4 text-2xl">
+                        <div className="flex justify-center space-x-4 text-2xl">
                             <a
-                                href="https://facebook.com"
+                                href="https://www.facebook.com/aldo.chiesa"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
                                 <FaFacebookF />
                             </a>
                             <a
-                                href="https://twitter.com"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <FaTwitter />
-                            </a>
-                            <a
-                                href="https://instagram.com"
+                                href="https://www.instagram.com/aldovoley/"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
