@@ -6,7 +6,7 @@ const TestimonialCard: React.FC<{
     author: string;
 }> = ({ rating, testimonial, author }) => {
     return (
-        <div className="flex flex-col justify-center max-w-sm bg-white bg-opacity-90 p-4 rounded-lg shadow-md">
+        <div className="flex flex-col justify-center min-w-60 max-w-sm bg-white bg-opacity-90 p-4 rounded-lg shadow-md">
             <div className="flex justify-center mb-2">
                 {[...Array(5)].map((_, index) => (
                     <FaStar

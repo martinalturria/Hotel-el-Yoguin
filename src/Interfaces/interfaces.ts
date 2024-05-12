@@ -7,10 +7,12 @@ export interface AdminState {
 
 // Comments Interfaces
 export interface Comment {
-    id: string;
-    customer: string;
-    message: string;
-}
+    id: string;       
+    name: string;
+    date: string;  
+    rating: number;  
+    comment: string;  
+  }
 
 export interface CommentsState {
     comments: Comment[];
@@ -47,3 +49,9 @@ export type HeroContent = {
         subtitle: string;
     };
 };
+
+export interface NewCommentData {
+    name: string;
+    rating: number;
+    comment: string;
+  }

@@ -47,11 +47,11 @@ const Navbar: React.FC = () => {
                                 title="Imagenes"
                                 onClose={closeMobileMenu}
                             />
-                            {/* <NavLink
+                            <NavLink
                                 to="/comments"
                                 title="Comentarios"
                                 onClose={closeMobileMenu}
-                            /> */}
+                            />
                             <NavLink
                                 to="/contact"
                                 title="Contacto"

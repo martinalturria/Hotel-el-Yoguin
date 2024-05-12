@@ -119,7 +119,7 @@ const ContactForm: React.FC = () => {
                         value={formData.message}
                         onChange={handleInputChange}
                         placeholder="Tu Mensaje"
-                        className="w-full p-2 text-hotel-black bg-white rounded border border-hotel-black"
+                        className="w-full p-2 text-hotel-black bg-white rounded border border-hotel-black resize-none"
                     ></textarea>
                 </div>
                 <button

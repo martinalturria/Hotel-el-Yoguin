@@ -1,28 +1,18 @@
+import { useSelector } from 'react-redux';
 import { useInView } from "react-intersection-observer";
 import TestimonialCard from "./TestimonialCard";
-import { useEffect, useState } from "react";
-
-const testimonials = [
-    {
-        rating: 5,
-        testimonial:
-            "Muy buena y familiar la atención. Aparte Aldo, su dueño orgullosamente te cuenta sobre su hotel que es un sitio historico",
-        author: "Gisela Abt",
-    },
-    {
-        rating: 4,
-        testimonial: "Buen lugar, Limpio, cómodo y con buen servicio.",
-        author: "Julio Molas",
-    },
-    {
-        rating: 5,
-        testimonial:
-            "Excelente hotel, de lo mejor de la zona. Es un casa histórica, el bar-comedor se mantiene como era originalmente y sirven unos menúes muy ricos y caseros. Altamente recomendable!",
-        author: "Fabian Barreda",
-    },
-];
+import { useEffect, useState, useMemo } from "react";
+import { selectComments } from '../../redux/features/comments/commentsSlice';
 
 const TestimonialsSection: React.FC = () => {
+    const comments = useSelector(selectComments);
+    const filteredComments = useMemo(() => {
+        return comments
+            .filter(comment => comment.rating === 5)
+            .sort((a, b) => b.date.localeCompare(a.date)) 
+            .slice(0, 3);
+    }, [comments]);
+
     const [animationTitle, setAnimationTitle] = useState("");
     const [animationComponent, setAnimationComponent] = useState("");
     const { ref, inView } = useInView({
@@ -60,16 +50,16 @@ const TestimonialsSection: React.FC = () => {
                 <div
                     className={`flex flex-col justify-center gap-8 md:flex-row md:gap-8 ${animationComponent}`}
                 >
-                    {testimonials.map((testimonial, index) => (
-                        <TestimonialCard key={index} {...testimonial} />
+                    {filteredComments.map((testimonial, index) => (
+                        <TestimonialCard key={index} rating={testimonial.rating} testimonial={testimonial.comment} author={testimonial.name} />
                     ))}
                 </div>
-                {/* <a
+                <a
                     href="/comments"
                     className={`text-hotel-gold text-2xl mt-8 inline-block hover:text-hotel-brown transition duration-300 ${animationTitle}`}
                 >
                     Ver más
-                </a> */}
+                </a>
             </div>
         </div>
     );
