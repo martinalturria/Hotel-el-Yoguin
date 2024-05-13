@@ -10,6 +10,7 @@ import PrivateRoute from "../components/Admin/PrivateRoutes/PrivateRoutes";
 import CommentsPage from "../pages/WEB/Comments";
 
 const AppRoutes: React.FC = () => {
+    const admin = "/admin"
     return (
         <Router>
             <Routes>
@@ -18,7 +19,7 @@ const AppRoutes: React.FC = () => {
                 <Route path="/comments" element={<Comments />} />
                 <Route path="/contact" element={<Contact />} />
 
-                <Route path="/admin" element={<Admin />} />
+                <Route path={admin} element={<Admin />} />
 
                 <Route
                     path="/admin/home"
