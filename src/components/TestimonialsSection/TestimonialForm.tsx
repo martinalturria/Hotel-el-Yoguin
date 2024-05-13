@@ -1,11 +1,15 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { firebaseAddComment } from "../../redux/features/comments/commentsSlice";
+import { firebaseAddComment, firebaseUpdateComment } from "../../redux/features/comments/commentsSlice";
 import { AppDispatch } from "../../redux/store";
+import { Comment, NewCommentData } from "../../Interfaces/interfaces";
 
-const TestimonialForm: React.FC = () => {
-    const [formData, setFormData] = useState({
+interface TestimonialFormProps {
+    comment?: Comment; 
+}
+
+const TestimonialForm: React.FC<TestimonialFormProps> = ({ comment }) => {
+    const [formData, setFormData] = useState<NewCommentData>({
         name: "",
         rating: 0,
         comment: "",
@@ -13,6 +17,16 @@ const TestimonialForm: React.FC = () => {
     const [status, setStatus] = useState("");
     const [statusType, setStatusType] = useState("");
     const dispatch: AppDispatch = useDispatch();
+
+    useEffect(() => {
+        if (comment) {
+            setFormData({
+                name: comment.name,
+                rating: comment.rating,
+                comment: comment.comment,
+            });
+        }
+    }, [comment]);
 
     const handleInputChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -33,35 +47,52 @@ const TestimonialForm: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (validateFields()) {
-            dispatch(
-                firebaseAddComment({
-                    name: formData.name,
-                    rating: formData.rating,
-                    comment: formData.comment,
-                })
-            )
-                .unwrap()
-                .then(() => {
-                    setStatus(
-                        "Comentario enviado correctamente. ¡Gracias por tu feedback!"
-                    );
-                    setStatusType("success");
-                    setFormData({
-                        name: "",
-                        rating: 0,
-                        comment: "",
+            const newCommentData: NewCommentData = { ...formData };
+            if (comment) {
+                const updatedComment: Comment = {
+                    ...comment,
+                    name: newCommentData.name,
+                    rating: newCommentData.rating,
+                    comment: newCommentData.comment,
+                };
+                dispatch(firebaseUpdateComment(updatedComment))
+                    .unwrap()
+                    .then(() => {
+                        setStatus("Comentario actualizado correctamente.");
+                        setStatusType("success");
+                        setFormData({ name: "", rating: 0, comment: "" }); 
+                    })
+                    .catch(() => {
+                        setStatus("Error al actualizar el comentario.");
+                        setStatusType("error");
+                    })
+                    .finally(() => {
+                        setTimeout(() => {
+                            setStatus("");
+                            setStatusType("");
+                        }, 5000);
                     });
-                })
-                .catch(() => {
-                    setStatus("Error al enviar el comentario.");
-                    setStatusType("error");
-                })
-                .finally(() => {
-                    setTimeout(() => {
-                        setStatus("");
-                        setStatusType("");
-                    }, 5000);
-                });
+            } else {
+                dispatch(firebaseAddComment(newCommentData))
+                    .unwrap()
+                    .then(() => {
+                        setStatus(
+                            "Comentario enviado correctamente. ¡Gracias por tu feedback!"
+                        );
+                        setStatusType("success");
+                        setFormData({ name: "", rating: 0, comment: "" }); 
+                    })
+                    .catch(() => {
+                        setStatus("Error al enviar el comentario.");
+                        setStatusType("error");
+                    })
+                    .finally(() => {
+                        setTimeout(() => {
+                            setStatus("");
+                            setStatusType("");
+                        }, 5000);
+                    });
+            }
         } else {
             setStatus("Por favor, completa todos los campos correctamente.");
             setStatusType("error");
@@ -123,7 +154,7 @@ const TestimonialForm: React.FC = () => {
                     type="submit"
                     className="w-full bg-hotel-gold text-hotel-black font-bold py-2 px-4 rounded hover:bg-hotel-brown"
                 >
-                    Enviar Comentario
+                    {comment ? "Actualizar Comentario" : "Enviar Comentario"}
                 </button>
                 {status && (
                     <div

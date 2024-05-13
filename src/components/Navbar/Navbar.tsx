@@ -1,11 +1,19 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { getAuth, signOut } from "firebase/auth";
 import MobileMenu from "./MobileMenu";
 import NavLink from "./NavLink";
-import { Link } from "react-router-dom";
+import {
+    logout,
+    selectIsAuthenticated,
+} from "../../redux/features/admin/adminSlice";
 
 const logo = "/assets/Images/logo.png";
 
 const Navbar: React.FC = () => {
+    const isAuthenticated = useSelector(selectIsAuthenticated);
+    const dispatch = useDispatch();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     useEffect(() => {
@@ -16,11 +24,21 @@ const Navbar: React.FC = () => {
         };
 
         window.addEventListener("resize", handleResize);
-
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
     const closeMobileMenu = () => setIsMobileMenuOpen(false);
+
+    const handleLogout = () => {
+        const auth = getAuth();
+        signOut(auth)
+            .then(() => {
+                dispatch(logout());
+            })
+            .catch((error) => {
+                console.error("Error al cerrar sesión:", error);
+            });
+    };
 
     return (
         <nav className="absolute top-0 left-0 w-full z-30 bg-hotel-nav bg-opacity-80 sm:bg-transparent">
@@ -35,8 +53,8 @@ const Navbar: React.FC = () => {
                             />
                         </Link>
                     </div>
-                    <div className="hidden sm:flex sm:space-x-4 mt-10">
-                        <div className="flex justify-end space-x-4">
+                    {!isAuthenticated ? (
+                        <div className="hidden sm:flex sm:space-x-4 mt-10">
                             <NavLink
                                 to="/"
                                 title="Inicio"
@@ -44,7 +62,7 @@ const Navbar: React.FC = () => {
                             />
                             <NavLink
                                 to="/images"
-                                title="Imagenes"
+                                title="Imágenes"
                                 onClose={closeMobileMenu}
                             />
                             <NavLink
@@ -58,7 +76,16 @@ const Navbar: React.FC = () => {
                                 onClose={closeMobileMenu}
                             />
                         </div>
-                    </div>
+                    ) : (
+                        <div className="hidden sm:flex sm:space-x-4 mt-10">
+                            <NavLink
+                                to="/"
+                                title="Cerrar Sesión"
+                                onClose={closeMobileMenu}
+                                action={handleLogout}
+                            />
+                        </div>
+                    )}
                     <div className="flex items-center sm:hidden">
                         <button
                             onClick={() =>
@@ -97,6 +124,8 @@ const Navbar: React.FC = () => {
                 <MobileMenu
                     isOpen={isMobileMenuOpen}
                     onClose={closeMobileMenu}
+                    isAuthenticated={isAuthenticated}
+                    handleLogout={handleLogout}
                 />
             </div>
         </nav>

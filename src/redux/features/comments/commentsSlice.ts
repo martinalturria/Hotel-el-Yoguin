@@ -14,7 +14,7 @@ import {
     CommentsState,
     NewCommentData,
 } from "../../../Interfaces/interfaces";
-import type { RootState } from "../../store";
+import type { AppDispatch, RootState } from "../../store";
 import { db } from "../../../config/firebase-config";
 
 const initialState: CommentsState = {
@@ -47,8 +47,7 @@ const commentsSlice = createSlice({
     },
 });
 
-// Async thunks for interacting with Firebase
-export const fetchAndSetComments = () => (dispatch: any) => {
+export const fetchAndSetComments = () => (dispatch: AppDispatch) => {
     const unsubscribe = onSnapshot(
         collection(db, "comments"),
         (snapshot) => {
@@ -90,16 +89,38 @@ export const firebaseAddComment = createAsyncThunk(
     }
 );
 
-export const firebaseRemoveComment = (id: string) => async () => {
-    const commentRef = doc(db, "comments", id);
-    await deleteDoc(commentRef);
-};
+export const firebaseRemoveComment = createAsyncThunk(
+    "comments/firebaseRemoveComment",
+    async (id: string, { dispatch, rejectWithValue }) => {
+        try {
+            const commentRef = doc(db, "comments", id);
+            await deleteDoc(commentRef);
+            dispatch(removeComment(id));
+        } catch (error) {
+            console.error("Error al eliminar el comentario:", error);
+            return rejectWithValue(error);
+        }
+    }
+);
 
-export const firebaseUpdateComment = (updatedComment: Comment) => async () => {
-    const commentData = { ...updatedComment };
-    const commentRef = doc(db, "comments", updatedComment.id);
-    await updateDoc(commentRef, commentData);
-};
+export const firebaseUpdateComment = createAsyncThunk(
+    "comments/firebaseUpdateComment",
+    async (updatedComment: Comment, { dispatch, rejectWithValue }) => {
+        try {
+            const { id, ...commentData } = updatedComment;
+            // Incluir el campo 'date' en commentData
+            const commentRef = doc(db, "comments", id);
+            await updateDoc(commentRef, {
+                ...commentData,
+                date: serverTimestamp(), 
+            });
+            dispatch(updateComment(updatedComment));
+        } catch (error) {
+            console.error("Error al actualizar el comentario:", error);
+            return rejectWithValue(error);
+        }
+    }
+);
 
 // Actions
 export const { setComments, addComment, removeComment, updateComment } =

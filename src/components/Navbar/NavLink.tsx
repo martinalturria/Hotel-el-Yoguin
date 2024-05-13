@@ -1,18 +1,32 @@
 import React from "react";
 import {
     Link,
-    NavLinkProps,
     useMatch,
     useResolvedPath,
 } from "react-router-dom";
 
-const NavLink: React.FC<NavLinkProps & { onClose: () => void }> = ({
+interface NavLinkProps {
+    to: string;
+    title: string;
+    onClose: () => void;
+    action?: () => void; 
+}
+
+const NavLink: React.FC<NavLinkProps> = ({
     to,
     title,
     onClose,
+    action
 }) => {
     const resolved = useResolvedPath(to);
     const match = useMatch({ path: resolved.pathname, end: true });
+
+    const handleClick = () => {
+        if (action) {
+            action(); 
+        }
+        onClose();
+    };
 
     return (
         <Link
@@ -22,7 +36,7 @@ const NavLink: React.FC<NavLinkProps & { onClose: () => void }> = ({
                     ? "text-hotel-cream font-bold text-lg"
                     : "text-hotel-cream hover:bg-hotel-brown hover:bg-opacity-40 hover:text-hotel-cream"
             }`}
-            onClick={onClose}
+            onClick={handleClick}
             aria-current={match ? "page" : undefined}
         >
             {title}

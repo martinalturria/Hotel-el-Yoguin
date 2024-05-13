@@ -7,12 +7,12 @@ export interface AdminState {
 
 // Comments Interfaces
 export interface Comment {
-    id: string;       
+    id: string;
     name: string;
-    date: string;  
-    rating: number;  
-    comment: string;  
-  }
+    date: string;
+    rating: number;
+    comment: string;
+}
 
 export interface CommentsState {
     comments: Comment[];
@@ -39,6 +39,8 @@ export interface NavLinkProps {
 export interface MobileMenuProps {
     isOpen: boolean;
     onClose: () => void;
+    isAuthenticated: boolean;
+    handleLogout: () => void;
 }
 
 // Hero Type
@@ -54,4 +56,5 @@ export interface NewCommentData {
     name: string;
     rating: number;
     comment: string;
-  }
+}
+

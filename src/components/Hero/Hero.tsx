@@ -27,6 +27,11 @@ const heroContent: HeroContent = {
         title: "Contacto",
         subtitle: "Estamos para servirte",
     },
+    "/admin/home": {
+        backgroundImage: roomImage,
+        title: "Administración",
+        subtitle: "Administración de la WEB",
+    },
 };
 
 const Hero: React.FC = () => {

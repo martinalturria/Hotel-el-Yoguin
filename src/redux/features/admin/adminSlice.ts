@@ -1,6 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../../store";
-import { AdminState } from "../../../Interfaces/interfaces";
+
+interface AdminState {
+    isAuthenticated: boolean;
+    username: string;
+    error: string | null;
+}
 
 const initialState: AdminState = {
     isAuthenticated: false,
@@ -12,30 +17,23 @@ const adminSlice = createSlice({
     name: "admin",
     initialState,
     reducers: {
-        login: (state, action) => {
-            if (
-                action.payload.username === "aldoadmin" &&
-                action.payload.password === "Aldoadmin24"
-            ) {
-                state.isAuthenticated = true;
-                state.username = action.payload.username;
-                state.error = null;
-            } else {
-                state.error = "Credenciales incorrectas";
-            }
+        setUser: (state, action: PayloadAction<{ email: string }>) => {
+            state.isAuthenticated = true;
+            state.username = action.payload.email;
         },
         logout: (state) => {
             state.isAuthenticated = false;
             state.username = "";
+            state.error = null;
         },
-        setError: (state, action) => {
+        setError: (state, action: PayloadAction<string>) => {
             state.error = action.payload;
         },
     },
 });
 
 // Actions
-export const { login, logout, setError } = adminSlice.actions;
+export const { setUser, logout, setError } = adminSlice.actions;
 
 // Selectors
 export const selectIsAuthenticated = (state: RootState) =>

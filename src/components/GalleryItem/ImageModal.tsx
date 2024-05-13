@@ -24,10 +24,8 @@ const ImageModal: React.FC<{
             }
         };
 
-        // Añade el evento listener al documento
         document.addEventListener("keydown", handleKeyDown);
 
-        // Limpia el evento listener del documento cuando el componente se desmonta
         return () => {
             document.removeEventListener("keydown", handleKeyDown);
         };
