@@ -51,7 +51,7 @@ const TestimonialsSection: React.FC = () => {
                     className={`flex flex-col justify-center gap-8 md:flex-row md:gap-8 ${animationComponent}`}
                 >
                     {filteredComments.map((testimonial, index) => (
-                        <TestimonialCard key={index} rating={testimonial.rating} testimonial={testimonial.comment} author={testimonial.name} />
+                        <TestimonialCard key={index} rating={testimonial.rating} testimonial={testimonial.comment} author={testimonial.name} isAuthenticated={false} onDelete={() => {}} onEdit={() =>{}}/>
                     ))}
                 </div>
                 <a
