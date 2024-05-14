@@ -22,7 +22,16 @@ export interface CommentsState {
 export interface Image {
     id: string;
     url: string;
-    description?: string;
+    name: string;
+    title: string;
+}
+
+export interface ImagesState {
+    images: Image[];
+}
+
+export interface NewImageData {
+    file: File;
 }
 
 export interface ImagesState {
@@ -57,4 +66,3 @@ export interface NewCommentData {
     rating: number;
     comment: string;
 }
-

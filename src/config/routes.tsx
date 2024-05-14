@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "../pages/WEB/Home";
-import ImagesGallery from "../pages/WEB/ImagesGalery";
+import ImagesGallery from "../pages/WEB/ImagesGallery";
 import Contact from "../pages/WEB/Contact";
 import Comments from "../pages/WEB/Comments";
 import Admin from "../pages/Admin/Admin";
@@ -10,7 +10,6 @@ import PrivateRoute from "../components/Admin/PrivateRoutes/PrivateRoutes";
 import CommentsPage from "../pages/WEB/Comments";
 
 const AppRoutes: React.FC = () => {
-    const admin = "/admin"
     return (
         <Router>
             <Routes>
@@ -19,7 +18,7 @@ const AppRoutes: React.FC = () => {
                 <Route path="/comments" element={<Comments />} />
                 <Route path="/contact" element={<Contact />} />
 
-                <Route path={admin} element={<Admin />} />
+                <Route path="/admin" element={<Admin />} />
 
                 <Route
                     path="/admin/home"
@@ -34,6 +33,14 @@ const AppRoutes: React.FC = () => {
                     element={
                         <PrivateRoute>
                             <CommentsPage />
+                        </PrivateRoute>
+                    }
+                />
+                 <Route
+                    path="/admin/images"
+                    element={
+                        <PrivateRoute>
+                            <ImagesGallery />
                         </PrivateRoute>
                     }
                 />

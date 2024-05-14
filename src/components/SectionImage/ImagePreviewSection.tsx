@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { RootState } from "../../redux/store";
+import { selectImages } from "../../redux/features/images/imagesSlice";
+import { Image } from "../../Interfaces/interfaces"; 
+
+const getRandomImages = (images: Image[], count: number) => {
+    const shuffled = images.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
+};
 
 const ImagePreviewSection: React.FC = () => {
     const [animationTitle, setAnimationTitle] = useState("");
@@ -9,6 +18,15 @@ const ImagePreviewSection: React.FC = () => {
         triggerOnce: false,
         threshold: 0.4,
     });
+
+    const images = useSelector((state: RootState) => selectImages(state));
+    const [imagePreviews, setImagePreviews] = useState<Image[]>([]);
+
+    useEffect(() => {
+        if (images.length > 0) {
+            setImagePreviews(getRandomImages(images, 3));
+        }
+    }, [images]);
 
     useEffect(() => {
         if (inView) {
@@ -19,12 +37,6 @@ const ImagePreviewSection: React.FC = () => {
             setAnimationComponent("components-fade-out");
         }
     }, [inView]);
-
-    const imagePreviews = [
-        { imgSrc: "/assets/Images/home/image1.jpg", galleryLink: "/images" },
-        { imgSrc: "/assets/Images/home/image2.jpg", galleryLink: "/images" },
-        { imgSrc: "/assets/Images/home/image3.jpg", galleryLink: "/images" },
-    ];
 
     return (
         <div
@@ -40,14 +52,10 @@ const ImagePreviewSection: React.FC = () => {
                 className={`grid grid-cols-1 md:grid-cols-3 gap-4 ${animationComponent}`}
             >
                 {imagePreviews.map((preview, index) => (
-                    <Link
-                        to={preview.galleryLink}
-                        key={index}
-                        className="group block"
-                    >
+                    <Link to="/images" key={preview.id} className="group block">
                         <div className="relative overflow-hidden bg-white">
                             <img
-                                src={preview.imgSrc}
+                                src={preview.url}
                                 alt={`Gallery Preview ${index + 1}`}
                                 className="object-cover w-full h-40 md:h-72 group-hover:opacity-95 transition ease-in-out group-hover:scale-110"
                             />

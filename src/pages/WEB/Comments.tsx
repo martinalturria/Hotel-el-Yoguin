@@ -2,14 +2,17 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useInView } from "react-intersection-observer";
-import { firebaseRemoveComment, selectComments } from "../../redux/features/comments/commentsSlice";
+import {
+    firebaseRemoveComment,
+    selectComments,
+} from "../../redux/features/comments/commentsSlice";
 import { selectIsAuthenticated } from "../../redux/features/admin/adminSlice";
 import Hero from "../../components/Hero/Hero";
 import TestimonialCard from "../../components/TestimonialsSection/TestimonialCard";
 import TestimonialForm from "../../components/TestimonialsSection/TestimonialForm";
 import Footer from "../../components/Footer/Footer";
-import ConfirmationDialog from "../../components/Admin/ComfirmDelete/ConfirmDelete";
 import { AppDispatch } from "../../redux/store";
+import ConfirmationDialog from "../../components/Admin/ComfirmDelete/ConfirmDelete";
 
 const CommentsPage: React.FC = () => {
     const comments = useSelector(selectComments);
@@ -69,7 +72,9 @@ const CommentsPage: React.FC = () => {
                     <div className={`mb-8 ${formAnimation}`}>
                         <TestimonialForm comment={currentComment} />
                     </div>
-                    <div className={`flex flex-col justify-center gap-8 md:flex-row md:flex-wrap md:gap-8 ${cardsAnimation}`}>
+                    <div
+                        className={`flex flex-col justify-center gap-8 md:flex-row md:flex-wrap md:gap-8 ${cardsAnimation}`}
+                    >
                         {comments.map((comment: any) => (
                             <TestimonialCard
                                 key={comment.id}
@@ -88,6 +93,7 @@ const CommentsPage: React.FC = () => {
                 <ConfirmationDialog
                     onConfirm={confirmDelete}
                     onCancel={() => setShowConfirmDialog(false)}
+                    message="¿Estás seguro de que deseas eliminar este comentario?"
                 />
             )}
             <Footer />
