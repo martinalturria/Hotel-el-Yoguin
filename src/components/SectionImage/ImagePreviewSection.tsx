@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { RootState } from "../../redux/store";
-import { selectImages } from "../../redux/features/images/imagesSlice";
+import { AppDispatch, RootState } from "../../redux/store";
+import { fetchAndSetImages, selectImages } from "../../redux/features/images/imagesSlice";
 import { Image } from "../../Interfaces/interfaces"; 
 
 const getRandomImages = (images: Image[], count: number) => {
-    const shuffled = images.sort(() => 0.5 - Math.random());
+    const shuffled = [...images].sort(() => 0.5 - Math.random());
     return shuffled.slice(0, count);
 };
 
@@ -21,12 +21,17 @@ const ImagePreviewSection: React.FC = () => {
 
     const images = useSelector((state: RootState) => selectImages(state));
     const [imagePreviews, setImagePreviews] = useState<Image[]>([]);
+    const dispatch = useDispatch<AppDispatch>();
 
     useEffect(() => {
         if (images.length > 0) {
             setImagePreviews(getRandomImages(images, 3));
         }
     }, [images]);
+
+    useEffect(() => {
+        dispatch(fetchAndSetImages());
+    }, [dispatch]);
 
     useEffect(() => {
         if (inView) {
